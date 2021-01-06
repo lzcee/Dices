@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Dices</string>
+    <string name="mensagemTv">Clique no botão abaixo para jogar o dado</string>
+    <string name="jogarBt">Jogar</string>
+    <string name="resultadoTv">Não Lançado</string>
+    <string name="dicesNumberTv">Número de dados</string>
+    <string name="settingsMi">Configurações</string>
+    <string name="exitMi">Sair</string>
+    <string name="diceNumber1">1</string>
+    <string name="diceNumber2">2</string>
+    <string name="dicesFaces">Número de Faces</string>
+    <string name="save">Salvar</string>
+</resources>
