@@ -31,7 +31,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(activityMainBinding.root)
+
+        val shared = getSharedPreferences("br.edu.ifsp.scl.ads.s5.pdm.dices_SETTINGS", Context.MODE_PRIVATE)
+        settings.dicesNumber = shared.getInt(getString(R.string.saved_dices_number),1)
+        settings.faces = shared.getInt(getString(R.string.saved_faces),6)
+
+        if (settings.dicesNumber == 2) {
+            findViewById<View>(R.id.resultado2Iv).visibility = View.VISIBLE
+        } else {
+            findViewById<View>(R.id.resultado2Iv).visibility = View.GONE
+            findViewById<View>(R.id.resultadoIv).visibility = View.VISIBLE
+        }
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater: MenuInflater = menuInflater

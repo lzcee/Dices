@@ -15,6 +15,16 @@ class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
+
+        val shared = getSharedPreferences("br.edu.ifsp.scl.ads.s5.pdm.dices_SETTINGS", Context.MODE_PRIVATE)
+        settings.dicesNumber = shared.getInt(getString(R.string.saved_dices_number),1)
+        settings.faces = shared.getInt(getString(R.string.saved_faces),6)
+        if (settings.dicesNumber == 1) {
+            diceNumber1.isChecked = true;
+        } else {
+            diceNumber2.isChecked = true;
+        }
+        dicesFacesEt.setText(settings.faces.toString())
     }
 
     fun saveSettings(view: View) {
