@@ -1,6 +1,7 @@
 package br.edu.ifsp.scl.ads.s5.pdm.dices
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -18,15 +19,11 @@ import kotlin.math.log
 class MainActivity : AppCompatActivity() {
     private lateinit var activityMainBinding: ActivityMainBinding
     private val SETTINGS_REQUEST_CODE = 1
-    companion object {
-        const val EXTRA_SETTINGS = "EXTRA_SETTINGS"
-    }
     private var settings =
-        Settings(1,6)
+        Settings(1, 6)
 
-    fun openSettingsActivity() {
+    private fun openSettingsActivity() {
         val settingsIntent = Intent("SETTINGS")
-        settingsIntent.putExtra(EXTRA_SETTINGS, settings)
         startActivityForResult(settingsIntent, SETTINGS_REQUEST_CODE)
     }
 
@@ -62,12 +59,17 @@ class MainActivity : AppCompatActivity() {
         @Nullable data: Intent?
     ) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == SETTINGS_REQUEST_CODE && resultCode == Activity.RESULT_OK && data != null) {
-            settings = data.getParcelableExtra(EXTRA_SETTINGS)
+        if (requestCode == SETTINGS_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+
+            val shared = getSharedPreferences("br.edu.ifsp.scl.ads.s5.pdm.dices_SETTINGS", Context.MODE_PRIVATE)
+            settings.dicesNumber = shared.getInt(getString(R.string.saved_dices_number),1)
+            settings.faces = shared.getInt(getString(R.string.saved_faces),6)
+
             if (settings.dicesNumber == 2) {
                 findViewById<View>(R.id.resultado2Iv).visibility = View.VISIBLE
             } else {
                 findViewById<View>(R.id.resultado2Iv).visibility = View.GONE
+                findViewById<View>(R.id.resultadoIv).visibility = View.VISIBLE
             }
         }
     }

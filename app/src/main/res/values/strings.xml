@@ -10,4 +10,6 @@
     <string name="diceNumber2">2</string>
     <string name="dicesFaces">Número de Faces</string>
     <string name="save">Salvar</string>
+    <string name="saved_dices_number">1</string>
+    <string name="saved_faces">6</string>
 </resources>

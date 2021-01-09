@@ -1,19 +1,20 @@
 package br.edu.ifsp.scl.ads.s5.pdm.dices
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import br.edu.ifsp.scl.ads.s5.pdm.dices.databinding.ActivitySettingsBinding
 import kotlinx.android.synthetic.main.activity_settings.*
 
 class SettingsActivity : AppCompatActivity() {
-    private lateinit var settings: Settings
+    private var settings = Settings(1,6)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
-
-        settings = intent.getParcelableExtra(MainActivity.EXTRA_SETTINGS) ?: Settings(1, 6)
     }
 
     fun saveSettings(view: View) {
@@ -26,8 +27,15 @@ class SettingsActivity : AppCompatActivity() {
 
             settings.faces = dicesFacesEt.text.toString().toInt()
 
+            val shared: SharedPreferences = getSharedPreferences("br.edu.ifsp.scl.ads.s5.pdm.dices_SETTINGS", Context.MODE_PRIVATE)
+
+            with(shared.edit()) {
+                putInt(getString(R.string.saved_dices_number), settings.dicesNumber)
+                putInt(getString(R.string.saved_faces), settings.faces)
+                apply()
+            }
+
             val resultIntent = Intent()
-            resultIntent.putExtra(MainActivity.EXTRA_SETTINGS, settings)
             setResult(RESULT_OK, resultIntent)
 
             finish()
