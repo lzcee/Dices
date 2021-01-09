@@ -7,10 +7,12 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageView
 import androidx.annotation.Nullable
 import androidx.appcompat.app.AppCompatActivity
 import br.edu.ifsp.scl.ads.s5.pdm.dices.databinding.ActivityMainBinding
 import java.util.*
+import kotlin.math.log
 
 
 class MainActivity : AppCompatActivity() {
@@ -72,13 +74,23 @@ class MainActivity : AppCompatActivity() {
 
     fun onClick(view: View) {
         if (view == activityMainBinding.jogarBt) {
-            val resultado: Int = Random(System.currentTimeMillis()).nextInt(6) + 1;
-            activityMainBinding.resultadoTv.text = resultado.toString()
-            // Gerando nome da imagem
-            val resultadoImagem = "dice_$resultado"
-            activityMainBinding.resultadoIv.setImageResource(
-                resources.getIdentifier(resultadoImagem, "drawable", packageName)
-            )
+            for (i in 1..settings.dicesNumber) {
+                val resultado: Int = Random(System.currentTimeMillis()).nextInt(settings.faces) + 1
+                val resultadoImagem = "dice_$resultado"
+
+                if (i == 1) {
+                    activityMainBinding.resultadoIv.setImageResource(
+                            resources.getIdentifier(resultadoImagem, "drawable", packageName)
+                    )
+                    activityMainBinding.resultadoTv.text = resultado.toString()
+                } else {
+                    activityMainBinding.resultado2Iv.setImageResource(
+                            resources.getIdentifier(resultadoImagem, "drawable", packageName)
+                    )
+                    activityMainBinding.resultadoTv.text = activityMainBinding.resultadoTv.text.toString() + " "+ resultado.toString()
+                }
+            }
+
         }
     }
 }
